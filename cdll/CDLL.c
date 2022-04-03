@@ -18,7 +18,7 @@
  */
 
 
-#include "DLL.h"
+#include "CDLL.h"
 
 static Node* new_node( int x )
 {
@@ -35,10 +35,10 @@ static Node* new_node( int x )
 // Función auxiliar.
 //
 // Elimina el nodo apuntado por |pos|. Esta función es utilizada
-// por DLL_Find_if()
+// por CDLL_Find_if()
 //
 // Devuelve el nodo a la derecha del nodo recién eliminado.
-static Node* erase( DLL* list, Node* pos )
+static Node* erase( CDLL* list, Node* pos )
 {
 
 }
@@ -49,7 +49,7 @@ static Node* erase( DLL* list, Node* pos )
  * @return Una referencia a la nueva lista
  * @post Una lista existente en el heap
  */
-DLL* DLL_New()
+CDLL* CDLL_New()
 {
 }
 
@@ -58,7 +58,7 @@ DLL* DLL_New()
  *
  * @param this Una lista.
  */
-void DLL_Delete( DLL** this )
+void CDLL_Delete( CDLL** this )
 {
 }
 
@@ -71,7 +71,7 @@ void DLL_Delete( DLL** this )
  * @post Coloca al cursor en el nuevo nodo
  *
  */
-void DLL_Insert( DLL* this, int item )
+void CDLL_Insert( CDLL* this, int item )
 {
 }
 
@@ -81,7 +81,7 @@ void DLL_Insert( DLL* this, int item )
  * @param this Una lista.
  * @param item El elemento a insertar
  */
-void DLL_Push_front( DLL* this, int item )
+void CDLL_Push_front( CDLL* this, int item )
 {
 }
 
@@ -91,7 +91,7 @@ void DLL_Push_front( DLL* this, int item )
  * @param this Una lista.
  * @param item El elemento a insertar
  */
-void DLL_Push_back( DLL* this, int item )
+void CDLL_Push_back( CDLL* this, int item )
 {
    Node* n = new_node( item );
    assert( n );
@@ -115,7 +115,7 @@ void DLL_Push_back( DLL* this, int item )
  * @post El cursor se mantiene en la posición en la que estaba cuando entró la
  * función.
  */
-void DLL_Pop_front( DLL* this )
+void CDLL_Pop_front( CDLL* this )
 {
 }
 
@@ -127,7 +127,7 @@ void DLL_Pop_front( DLL* this )
  * @post El cursor se mantiene en la posición en la que estaba cuando entró la
  * función.
  */
-void DLL_Pop_back( DLL* this )
+void CDLL_Pop_back( CDLL* this )
 {
    assert( this->len );
    // ERR: no se puede borrar nada de una lista vacía
@@ -152,7 +152,7 @@ void DLL_Pop_back( DLL* this )
  *
  * @return El valor apuntado por el cursor
  */
-int DLL_Cursor_Get( DLL* this )
+int CDLL_Cursor_Get( CDLL* this )
 {
 }
 
@@ -161,7 +161,7 @@ int DLL_Cursor_Get( DLL* this )
  *
  * @param this Una referencia a la lista de trabajo
  */
-void DLL_Cursor_front( DLL* this )
+void CDLL_Cursor_front( CDLL* this )
 {
    this->cursor = this->first;
 }
@@ -171,7 +171,7 @@ void DLL_Cursor_front( DLL* this )
  *
  * @param this Una referencia a la lista de trabajo
  */
-void DLL_Cursor_back( DLL* this )
+void CDLL_Cursor_back( CDLL* this )
 {
 }
 
@@ -180,7 +180,7 @@ void DLL_Cursor_back( DLL* this )
  *
  * @param this Una lista.
  */
-void DLL_Cursor_next( DLL* this )
+void CDLL_Cursor_next( CDLL* this )
 {
 }
 
@@ -189,7 +189,7 @@ void DLL_Cursor_next( DLL* this )
  *
  * @param this Una lista.
  */
-void DLL_Cursor_prev( DLL* this )
+void CDLL_Cursor_prev( CDLL* this )
 {
    assert( this->cursor != NULL );
 
@@ -204,7 +204,7 @@ void DLL_Cursor_prev( DLL* this )
  *
  * @return true si la lista está vacía; false en caso contrario.
  */
-bool DLL_IsEmpty( DLL* this )
+bool CDLL_IsEmpty( CDLL* this )
 {
    return this->first == NULL;
 }
@@ -216,7 +216,7 @@ bool DLL_IsEmpty( DLL* this )
  *
  * @return Devuelve el número actual de elementos en la lista.
  */
-size_t DLL_Len( DLL* this )
+size_t CDLL_Len( CDLL* this )
 {
 }
 
@@ -225,7 +225,7 @@ size_t DLL_Len( DLL* this )
  *
  * @param this Una lista
  */
-void DLL_MakeEmpty( DLL* this )
+void CDLL_MakeEmpty( CDLL* this )
 {
 }
 
@@ -238,7 +238,7 @@ void DLL_MakeEmpty( DLL* this )
  *
  * @pre La lista NO debe estar vacía
  */
-int DLL_Front( DLL* this )
+int CDLL_Front( CDLL* this )
 {
    assert( this->first != NULL );
    // ERR: no se puede leer de una lista vacía
@@ -255,7 +255,7 @@ int DLL_Front( DLL* this )
  *
  * @pre La lista NO debe estar vacía
  */
-int DLL_Back( DLL* this )
+int CDLL_Back( CDLL* this )
 {
 }
 
@@ -265,7 +265,7 @@ int DLL_Back( DLL* this )
  * @param this Una lista.
  *
  */
-void DLL_Erase( DLL* this )
+void CDLL_Erase( CDLL* this )
 {
 }
 
@@ -276,7 +276,7 @@ void DLL_Erase( DLL* this )
  * @param key  Valor buscado
  *
  */
-void DLL_Remove( DLL* this, int key )
+void CDLL_Remove( CDLL* this, int key )
 {
 }
 
@@ -289,15 +289,15 @@ void DLL_Remove( DLL* this, int key )
  * @post Si se encontró una coincidencia coloca al cursor en ese nodo; en caso contrario el cursor es NULL.
  *
  * @code
- * if( DLL_Find( list, x ) )
+ * if( CDLL_Find( list, x ) )
  * {
- *    y = DLL_Cursor_Get( list );
+ *    y = CDLL_Cursor_Get( list );
  *
  *    // ...
  * }
  * @endcode
  */
-bool DLL_Find( DLL* this, int key )
+bool CDLL_Find( CDLL* this, int key )
 {
    for( this->cursor = this->first; 
         this->cursor != NULL; 
@@ -316,9 +316,9 @@ bool DLL_Find( DLL* this, int key )
  *
  * @param this Una lista.
  */
-void DLL_PrintStructure( DLL* this )
+void CDLL_PrintStructure( CDLL* this )
 {
-   if( DLL_IsEmpty( this ) )
+   if( CDLL_IsEmpty( this ) )
    {
       fprintf( stderr, "Empty list. Nothing to show.\n" );
    } 
@@ -346,7 +346,7 @@ void DLL_PrintStructure( DLL* this )
  * @param lista Una lista
  * @param p_fn Función que procesa cada elemento de la lista
  */
-void DLL_For_each( DLL* this, void (*p_fn)( int item ) )
+void CDLL_For_each( CDLL* this, void (*p_fn)( int item ) )
 {
    for( Node* it = this->first; it != NULL; it = it->next )
    {
@@ -363,9 +363,9 @@ void DLL_For_each( DLL* this, void (*p_fn)( int item ) )
  *
  * @return Un apuntador al nodo donde se haya encontrado la primer coincidencia. Devuelve NULL en caso de no haber encontrado ninguna
  */
-Node* DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
+Node* CDLL_Find_if( CDLL* this, bool (*cmp)( int, int ), int key )
 {
-   assert( DLL_IsEmpty( this ) == false );
+   assert( CDLL_IsEmpty( this ) == false );
    // ERR: no se puede buscar nada en una lista vacía
 
    Node* it = this->first;
@@ -390,9 +390,9 @@ Node* DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
  * @param key El valor contra el que se está comparando.
  * @return El número de elementos encontrados y borrados.
  */
-size_t DLL_Remove_if( DLL* this, bool (*cmp)( int x, int y ), int key )
+size_t CDLL_Remove_if( CDLL* this, bool (*cmp)( int x, int y ), int key )
 {
-   assert( DLL_IsEmpty( this ) == false );
+   assert( CDLL_IsEmpty( this ) == false );
    // ERR: no se puede eliminar nada de una lista vacía
 
    Node* it = this->first;
