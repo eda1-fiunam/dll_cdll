@@ -13,14 +13,17 @@
 
 #include "defs.h"
 
-
+// función para inyectar en algunas operaciones de la lista:
 void Print( int item )
 {
-	printf( "%d\n", item );
+   printf( "%d\n", item );
 }
 
 // función predicado:
-bool less_than( int list_val, int user_val ){ return list_val < user_val; }
+bool less_than( int list_val, int user_val )
+{ 
+   return list_val < user_val;
+}
 
 
 
@@ -30,15 +33,7 @@ bool less_than( int list_val, int user_val ){ return list_val < user_val; }
 //----------------------------------------------------------------------
 int main(void)
 {
-	DLL* unaLista = DLL_New();
-	
-	
-	DLL_Traverse( unaLista, Print );
-	// el nombre de la función es su dirección
-	
-
-
-
-	DLL_Delete( &unaLista );
-	return 0;
+   DLL* unaLista = DLL_New();
+   
+   DLL_Delete( &unaLista );
 }
