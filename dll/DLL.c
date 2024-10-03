@@ -32,17 +32,6 @@ static Node* new_node( int x )
    return n;
 }
 
-// Función auxiliar.
-//
-// Elimina el nodo apuntado por |pos|. Esta función es utilizada
-// por DLL_Find_if()
-//
-// Devuelve el nodo a la derecha del nodo recién eliminado.
-static Node* erase( DLL* list, Node* pos )
-{
-
-}
-
 /**
  * @brief Crea una lista doblemente enlazada
  *
@@ -381,6 +370,40 @@ Node* DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
    return it;
 }
 
+#if 0
+// Función auxiliar.
+//
+// Elimina el nodo apuntado por |pos|. Esta función es utilizada
+// por DLL_Find_if()
+//
+// Devuelve el nodo a la derecha del nodo recién eliminado.
+static Node* erase( DLL* this, Node* pos )
+{
+   assert( ! DLL_IsEmpty( this ) );
+
+   if( pos == this->first )
+   {
+      DLL_Pop_front( this );
+      this->cursor = this->first->next;
+   }
+   else if( pos == this->last )
+   {
+      DLL_Pop_back( this );
+      this->cursor = NULL;
+   }
+   else
+   {
+      Node* left = pos->prev;
+      Node* right = pos->next;
+      free( pos );
+      left->next = right;
+      right->prev = left;
+      --this->len;
+
+      this->cursor = right;
+   }
+}
+
 
 /**
  * @brief Elimina todos los elementos que den positivo a la función predicado.
@@ -413,5 +436,5 @@ size_t DLL_Remove_if( DLL* this, bool (*cmp)( int x, int y ), int key )
 
    return elems;
 }
-
+#endif  
 
