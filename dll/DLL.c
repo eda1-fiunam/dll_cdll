@@ -23,7 +23,8 @@
 static Node* new_node( int x )
 {
    Node* n = (Node*) malloc( sizeof( Node ) );
-   if( n != NULL ){
+   if( n != NULL )
+   {
       n->datos = x;
       n->next = NULL;
       n->prev = NULL;
@@ -49,6 +50,20 @@ DLL* DLL_New()
  */
 void DLL_Delete( DLL** this )
 {
+   assert( *this );
+   // ERR: La lista no existe
+
+   // 1. Borramos todos los nodos:
+   while( (*this)->first != NULL )
+   {
+      DLL_Pop_back( *this );
+   }
+
+   // 2. Borramos al objeto DLL:
+   free( *this );
+
+   // 3. Evitamos problemas futuros:
+   *this = NULL;
 }
 
 /**
@@ -67,7 +82,7 @@ void DLL_Insert( DLL* this, int item )
 /**
  * @brief Inserta un elemento en el frente de la lista.
  *
- * @param this Una lista.
+ * @param this Una lista
  * @param item El elemento a insertar
  */
 void DLL_Push_front( DLL* this, int item )
@@ -85,12 +100,14 @@ void DLL_Push_back( DLL* this, int item )
    Node* n = new_node( item );
    assert( n );
 
-   if( this->first != NULL ){
-
+   if( this->first != NULL )
+   {
       this->last->next = n;
       n->prev = this->last;
       this->last = n;
-   } else{
+   }
+   else
+   {
       this->first = this->last = this->cursor = n;
    }
    ++this->len;
@@ -128,7 +145,9 @@ void DLL_Pop_back( DLL* this )
       x->next = NULL;
       this->last = x;
       --this->len;
-   } else{
+   }
+   else
+   {
       free( this->last );
       this->first = this->last = this->cursor = NULL;
    }
@@ -288,9 +307,7 @@ void DLL_Remove( DLL* this, int key )
  */
 bool DLL_Find( DLL* this, int key )
 {
-   for( this->cursor = this->first; 
-        this->cursor != NULL; 
-        this->cursor = this->cursor->next )
+   for( this->cursor = this->first; this->cursor != NULL; this->cursor = this->cursor->next )
    {
       if( this->cursor->datos == key )
       {
@@ -360,11 +377,9 @@ Node* DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
    Node* it = this->first;
    // |it| es la abreviación de "iterator", o  en español, "iterador"
 
-   while( it != NULL ){
-
+   for( ; it != NULL; it = it->next )
+   {
       if( cmp( it->datos, key ) == true ) break;
-
-      it = it->next;
    }
 
    return it;
