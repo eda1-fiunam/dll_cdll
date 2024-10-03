@@ -41,6 +41,13 @@ static Node* new_node( int x )
  */
 DLL* DLL_New()
 {
+   DLL* list = (DLL*)malloc( sizeof( DLL ) );
+   if( list )
+   {
+      list->first = list->last = list->cursor = NULL;
+      list->len = 0;
+   }
+   return list;
 }
 
 /**
@@ -385,7 +392,7 @@ Node* DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
    return it;
 }
 
-#if 0
+#if 1
 // Función auxiliar.
 //
 // Elimina el nodo apuntado por |pos|. Esta función es utilizada
@@ -399,12 +406,12 @@ static Node* erase( DLL* this, Node* pos )
    if( pos == this->first )
    {
       DLL_Pop_front( this );
-      this->cursor = this->first->next;
+      pos = this->first->next;
    }
    else if( pos == this->last )
    {
       DLL_Pop_back( this );
-      this->cursor = NULL;
+      pos = NULL;
    }
    else
    {
@@ -415,8 +422,10 @@ static Node* erase( DLL* this, Node* pos )
       right->prev = left;
       --this->len;
 
-      this->cursor = right;
+      pos = right;
    }
+
+   return pos;
 }
 
 
@@ -433,23 +442,25 @@ size_t DLL_Remove_if( DLL* this, bool (*cmp)( int x, int y ), int key )
    assert( DLL_IsEmpty( this ) == false );
    // ERR: no se puede eliminar nada de una lista vacía
 
+   size_t erased_elems = 0;
+
    Node* it = this->first;
    // |it| es la abreviación de "iterator", o  en español, "iterador"
-
-   size_t elems = 0;
 
    while( it != NULL ){
 
       if( cmp( it->datos, key ) == true ) 
       {
-         erase( this, it );
-         ++elems;
+         it = erase( this, it );
+         ++erased_elems;
       }
-
-      it = it->next;
+      else
+      {
+         it = it->next;
+      }
    }
 
-   return elems;
+   return erased_elems;
 }
 #endif  
 
