@@ -368,31 +368,32 @@ void DLL_For_each( DLL* this, void (*p_fn)( int item ) )
 }
 
 /**
- * @brief Busca si algún valor en la lista cumple con la función predicado
+ * @brief Busca si algún valor en la lista cumple con la función predicado. Coloca al cursor donde se haya encontrado la primer coincidencia. El cursor tendrá el valor NULL en caso de no haber encontrado ninguna.
  *
  * @param this Una lista
  * @param p_fn Función predicado. El elemento |y| es proporcionado por el argumento |key|, mientras que el valor |x| se obtiene de la lista. Por ejemplo, si la función quiere saber si el valor de la lista es menor que el valor del usuario (list_val < user_val), entonces la función podría ser: less_than( list_val, user_val), la cual se lee en conjunto: "Si el valor de la lista |list_val| es menor que el valor del usuario |user_val|, entonces devuelve verdadero; en caso contrario devuelve falso"
  * @param key El valor contra el que se está realizando la comparación.
  *
- * @return Un apuntador al nodo donde se haya encontrado la primer coincidencia. Devuelve NULL en caso de no haber encontrado ninguna
+ * @return true si encontró alguna coincidencia; false en caso contrario (y el cursor estará apuntando a NULL).
+ *
+ * @pre La lista debe existir.
+ * @pre La primera vez que se llame a esta función el cursor deberá estar apuntando al primer elemento de la lista. El cliente es responsable de mover el cursor un elemento a la derecha antes de volver a llamar a esta función (de otro modo el cursor se quedaría atorado en la última posición).
+ * @post El cursor se ve afectado después de llamar a esta función.
  */
-Node* DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
+bool DLL_Find_if( DLL* this, bool (*cmp)( int, int ), int key )
 {
    assert( DLL_IsEmpty( this ) == false );
    // ERR: no se puede buscar nada en una lista vacía
 
-   Node* it = this->first;
-   // |it| es la abreviación de "iterator", o  en español, "iterador"
-
-   for( ; it != NULL; it = it->next )
+   for( ; this->cursor != NULL; this->cursor = this->cursor->next )
    {
-      if( cmp( it->datos, key ) == true ) break;
+      if( cmp( this->cursor->datos, key ) == true ) 
+         return true;
    }
 
-   return it;
+   return false;
 }
 
-#if 1
 // Función auxiliar.
 //
 // Elimina el nodo apuntado por |pos|. Esta función es utilizada
@@ -462,5 +463,4 @@ size_t DLL_Remove_if( DLL* this, bool (*cmp)( int x, int y ), int key )
 
    return erased_elems;
 }
-#endif  
 

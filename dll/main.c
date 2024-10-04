@@ -41,10 +41,24 @@ int main(void)
    DLL_Push_back( list, 9 );
    DLL_Push_back( list, 8 );
    DLL_Push_back( list, 2 );
+   DLL_Push_back( list, 5 );
+   DLL_Push_back( list, 2 );
    DLL_PrintStructure( list );
+
+// Reactivar cuando hayan codificado todas las funciones:
+#if 0
+   printf( "Valores menores a 5: " );
+   DLL_Cursor_front( list );
+   while( DLL_Find_if( list, less_than, 5 ) )
+   {
+      printf( "%d, ", DLL_Cursor_Get( list ) );
+      DLL_Cursor_next( list );
+   }
+   printf( "\n" );
 
    DLL_Remove_if( list, less_than, 5 );
    DLL_PrintStructure( list );
+#endif
    
    DLL_Delete( &list );
 }

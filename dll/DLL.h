@@ -87,10 +87,8 @@ void DLL_PrintStructure( DLL* this );
 
 // avanzadas:
 void DLL_For_each( DLL* this, void (*p_fn)( int item ) );
-Node* DLL_Find_if( DLL* this, bool (*p_fn)( int, int ), int key );
-#if 1 
+bool DLL_Find_if( DLL* this, bool (*p_fn)( int, int ), int key );
 size_t DLL_Remove_if( DLL* this, bool (*cmp)( int x, int y ), int key );
-#endif  
 
 
 #endif   /* ----- #ifndef DLL_INC  ----- */
